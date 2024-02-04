@@ -16,16 +16,93 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8rZ-2R-pto">
+                                <rect key="frame" x="219.66666666666663" y="59.000000000000007" width="157.33333333333337" height="78.666666666666686"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QO-2f-oYd">
+                                        <rect key="frame" x="0.0" y="0.0" width="157.33333333333334" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="arrow.down" catalog="system" title="To"/>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eSW-wa-UTJ" customClass="CleanTextField" customModule="Currency" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.333333333333329" width="157.33333333333334" height="34.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="0QO-2f-oYd" firstAttribute="leading" secondItem="8rZ-2R-pto" secondAttribute="leading" id="GK2-Wn-kfm"/>
+                                    <constraint firstAttribute="trailing" secondItem="0QO-2f-oYd" secondAttribute="trailing" id="ctv-je-rvc"/>
+                                    <constraint firstAttribute="trailing" secondItem="eSW-wa-UTJ" secondAttribute="trailing" id="gkt-PE-i2g"/>
+                                    <constraint firstItem="eSW-wa-UTJ" firstAttribute="leading" secondItem="8rZ-2R-pto" secondAttribute="leading" id="tHd-CR-43V"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gK1-cl-Pza">
+                                <rect key="frame" x="171.33333333333334" y="59" width="50.333333333333343" height="34.333333333333343"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.left.and.right" catalog="system"/>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dz1-22-hT5">
+                                <rect key="frame" x="16" y="59.000000000000007" width="157.33333333333334" height="78.666666666666686"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aca-SV-Yny">
+                                        <rect key="frame" x="0.0" y="0.0" width="157.33333333333334" height="34.333333333333336"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="arrow.down" catalog="system" title="From"/>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qEb-dp-EEp" customClass="CleanTextField" customModule="Currency" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.333333333333329" width="157.33333333333334" height="34.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Aca-SV-Yny" firstAttribute="leading" secondItem="Dz1-22-hT5" secondAttribute="leading" id="9Ir-Je-zaf"/>
+                                    <constraint firstItem="qEb-dp-EEp" firstAttribute="leading" secondItem="Dz1-22-hT5" secondAttribute="leading" id="Hlx-2V-U6M"/>
+                                    <constraint firstAttribute="trailing" secondItem="Aca-SV-Yny" secondAttribute="trailing" id="Tnm-iV-kE8"/>
+                                    <constraint firstAttribute="trailing" secondItem="qEb-dp-EEp" secondAttribute="trailing" id="rtU-BX-1CX"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Mq-rb-PNl">
+                                <rect key="frame" x="158.66666666666666" y="157.66666666666666" width="76" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Details"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gK1-cl-Pza" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="19q-q1-jx8"/>
+                            <constraint firstItem="gK1-cl-Pza" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="6id-s2-qQD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8rZ-2R-pto" secondAttribute="trailing" constant="16" id="98K-DY-Xj7"/>
+                            <constraint firstItem="9Mq-rb-PNl" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0410798" id="C55-oB-Sqb"/>
+                            <constraint firstItem="Dz1-22-hT5" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="DnI-5V-dvK"/>
+                            <constraint firstItem="eSW-wa-UTJ" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.4" id="I3K-4Z-FDa"/>
+                            <constraint firstItem="Dz1-22-hT5" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Xet-k4-PW5"/>
+                            <constraint firstItem="9Mq-rb-PNl" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="aph-pa-vDF"/>
+                            <constraint firstItem="9Mq-rb-PNl" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.193384" id="cuw-G9-ND7"/>
+                            <constraint firstItem="qEb-dp-EEp" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.4" id="ebq-MH-mEF"/>
+                            <constraint firstItem="8rZ-2R-pto" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="h6y-fe-dco"/>
+                            <constraint firstItem="9Mq-rb-PNl" firstAttribute="bottom" secondItem="qEb-dp-EEp" secondAttribute="bottom" multiplier="1.7" id="qoV-JT-Rl6"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="buttonDetail" destination="9Mq-rb-PNl" id="TIM-fB-4e6"/>
+                        <outlet property="buttonFrom" destination="Aca-SV-Yny" id="1X3-G1-OSG"/>
+                        <outlet property="buttonSwap" destination="gK1-cl-Pza" id="2rg-zz-hsv"/>
+                        <outlet property="buttonTo" destination="0QO-2f-oYd" id="6aS-lp-5i3"/>
+                        <outlet property="txtFieldFrom" destination="qEb-dp-EEp" id="yeT-cT-Pea"/>
+                        <outlet property="txtFieldTo" destination="eSW-wa-UTJ" id="iGN-J3-hcT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="4"/>
+            <point key="canvasLocation" x="135.1145038167939" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.down" catalog="system" width="118" height="128"/>
+        <image name="arrow.left.and.right" catalog="system" width="128" height="76"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
