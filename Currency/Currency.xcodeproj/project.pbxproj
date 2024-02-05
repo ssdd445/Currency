@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		814FB5912B6FA68F005C1B80 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814FB5902B6FA68F005C1B80 /* CustomTextField.swift */; };
+		814FB5932B6FDA04005C1B80 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814FB5922B6FDA04005C1B80 /* Constants.swift */; };
 		818B20712B6F526400A7C91F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818B20702B6F526400A7C91F /* AppDelegate.swift */; };
 		818B207A2B6F526500A7C91F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818B20792B6F526500A7C91F /* Assets.xcassets */; };
 		818B207D2B6F526500A7C91F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818B207B2B6F526500A7C91F /* LaunchScreen.storyboard */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		814FB5902B6FA68F005C1B80 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		814FB5922B6FDA04005C1B80 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		818B206D2B6F526400A7C91F /* Currency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Currency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818B20702B6F526400A7C91F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		818B20792B6F526500A7C91F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				818B20CD2B6F87F900A7C91F /* APIConstants.swift */,
+				814FB5922B6FDA04005C1B80 /* Constants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 			children = (
 				818B20C72B6F755100A7C91F /* LoadingView.swift */,
 				818B20CB2B6F7A3F00A7C91F /* BaseViewController.swift */,
+				814FB5902B6FA68F005C1B80 /* CustomTextField.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -442,6 +448,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				818B20C62B6F72F600A7C91F /* CurrencyHistoryViewModel.swift in Sources */,
+				814FB5932B6FDA04005C1B80 /* Constants.swift in Sources */,
+				814FB5912B6FA68F005C1B80 /* CustomTextField.swift in Sources */,
 				818B20B62B6F6A8700A7C91F /* CurrencyConversionViewController.swift in Sources */,
 				818B20712B6F526400A7C91F /* AppDelegate.swift in Sources */,
 				818B20BC2B6F6C0600A7C91F /* CurrencyConversionViewModel.swift in Sources */,
