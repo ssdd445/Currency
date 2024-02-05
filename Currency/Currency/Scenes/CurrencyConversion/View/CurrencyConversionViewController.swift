@@ -15,9 +15,13 @@ class CurrencyConversionViewController: UIViewController {
     @IBOutlet weak var buttonSwap: UIButton!
     @IBOutlet weak var buttonDetail: UIButton!
     
+    @IBOutlet weak var fromCurrencyPickerView: UIPickerView!
+    @IBOutlet weak var toCurrencyPickerView: UIPickerView!
+    @IBOutlet weak var buttonDone: UIButton!
+    
     @IBOutlet weak var txtFieldFrom: CleanTextField!
     @IBOutlet weak var txtFieldTo: CleanTextField!
-
+    
     private let disposeBag = DisposeBag()
     
     var viewModel: CurrencyConversionViewModel!
@@ -26,6 +30,7 @@ class CurrencyConversionViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.addSubview(loadingView)
+        self.txtFieldFrom.becomeFirstResponder()
         
         self.configureBindings()
     }
@@ -55,6 +60,10 @@ class CurrencyConversionViewController: UIViewController {
             .bind(to: viewModel.buttonDetailsTap)
             .disposed(by: disposeBag)
         
+        buttonDone.rx.tap
+            .bind(to: viewModel.buttonDoneTap)
+            .disposed(by: disposeBag)
+        
         viewModel.fromTextField
             .bind(to: txtFieldFrom.rx.text)
             .disposed(by: disposeBag)
@@ -77,6 +86,52 @@ class CurrencyConversionViewController: UIViewController {
         
         viewModel.toOutputSubject
             .bind(to: txtFieldFrom.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.pickerFromData
+            .bind(to: fromCurrencyPickerView.rx.itemTitles) { _, item in
+                return item
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.pickerToData
+            .bind(to: toCurrencyPickerView.rx.itemTitles) { _, item in
+                return item
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedFromItem
+            .bind(to: buttonFrom.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedToItem
+            .bind(to: buttonTo.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        fromCurrencyPickerView.rx.itemSelected
+            .map { $0.row }
+            .bind(to: viewModel.selectFromItem)
+            .disposed(by: disposeBag)
+        
+        toCurrencyPickerView.rx.itemSelected
+            .map { $0.row }
+            .bind(to: viewModel.selectToItem)
+            .disposed(by: disposeBag)
+
+        viewModel.isFromPickerVisible
+            .bind(to: buttonDone.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.isToPickerVisible
+            .bind(to: toCurrencyPickerView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.isFromPickerVisible
+            .bind(to: fromCurrencyPickerView.rx.isHidden)
+            .disposed(by: disposeBag)
+                
+        viewModel.isToPickerVisible
+            .bind(to: buttonDone.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }

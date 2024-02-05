@@ -64,33 +64,59 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Mq-rb-PNl">
-                                <rect key="frame" x="158.66666666666666" y="157.66666666666666" width="76" height="35"/>
+                                <rect key="frame" x="118" y="157.66666666666666" width="157" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Details"/>
                             </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fen-hV-yvU">
+                                <rect key="frame" x="0.0" y="222.66666666666663" width="393" height="216"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icy-m0-MmQ">
+                                <rect key="frame" x="317" y="188.66666666666666" width="60" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Done">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="14"/>
+                                </buttonConfiguration>
+                            </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybv-AW-Up8">
+                                <rect key="frame" x="0.0" y="222" width="393" height="216"/>
+                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="gK1-cl-Pza" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="19q-q1-jx8"/>
+                            <constraint firstItem="fen-hV-yvU" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.253521" id="1av-8y-LPC"/>
                             <constraint firstItem="gK1-cl-Pza" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="6id-s2-qQD"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8rZ-2R-pto" secondAttribute="trailing" constant="16" id="98K-DY-Xj7"/>
                             <constraint firstItem="9Mq-rb-PNl" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0410798" id="C55-oB-Sqb"/>
                             <constraint firstItem="Dz1-22-hT5" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="DnI-5V-dvK"/>
                             <constraint firstItem="eSW-wa-UTJ" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.4" id="I3K-4Z-FDa"/>
+                            <constraint firstItem="fen-hV-yvU" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="JPv-By-96x"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="icy-m0-MmQ" secondAttribute="trailing" constant="16" id="KYN-Hp-9MS"/>
+                            <constraint firstItem="fen-hV-yvU" firstAttribute="top" secondItem="icy-m0-MmQ" secondAttribute="bottom" constant="3" id="NsR-QP-3Pb"/>
+                            <constraint firstItem="ybv-AW-Up8" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="Oyo-tp-trx"/>
                             <constraint firstItem="Dz1-22-hT5" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Xet-k4-PW5"/>
                             <constraint firstItem="9Mq-rb-PNl" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="aph-pa-vDF"/>
-                            <constraint firstItem="9Mq-rb-PNl" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.193384" id="cuw-G9-ND7"/>
+                            <constraint firstItem="fen-hV-yvU" firstAttribute="top" secondItem="9Mq-rb-PNl" secondAttribute="bottom" constant="30" id="blo-Py-xE8"/>
+                            <constraint firstItem="9Mq-rb-PNl" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.4" id="cuw-G9-ND7"/>
                             <constraint firstItem="qEb-dp-EEp" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.4" id="ebq-MH-mEF"/>
                             <constraint firstItem="8rZ-2R-pto" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="h6y-fe-dco"/>
+                            <constraint firstItem="ybv-AW-Up8" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.253521" id="mzZ-7X-zaS"/>
                             <constraint firstItem="9Mq-rb-PNl" firstAttribute="bottom" secondItem="qEb-dp-EEp" secondAttribute="bottom" multiplier="1.7" id="qoV-JT-Rl6"/>
+                            <constraint firstItem="ybv-AW-Up8" firstAttribute="top" secondItem="icy-m0-MmQ" secondAttribute="bottom" constant="2.3300000000000001" id="wjb-xt-RPx"/>
+                            <constraint firstItem="fen-hV-yvU" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="xQS-Sr-kOb"/>
+                            <constraint firstItem="ybv-AW-Up8" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="zeL-4J-MAI"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonDetail" destination="9Mq-rb-PNl" id="TIM-fB-4e6"/>
+                        <outlet property="buttonDone" destination="icy-m0-MmQ" id="CnL-PR-AIO"/>
                         <outlet property="buttonFrom" destination="Aca-SV-Yny" id="1X3-G1-OSG"/>
                         <outlet property="buttonSwap" destination="gK1-cl-Pza" id="2rg-zz-hsv"/>
                         <outlet property="buttonTo" destination="0QO-2f-oYd" id="6aS-lp-5i3"/>
+                        <outlet property="fromCurrencyPickerView" destination="fen-hV-yvU" id="ns9-AO-lhe"/>
+                        <outlet property="toCurrencyPickerView" destination="ybv-AW-Up8" id="a8P-nx-abr"/>
                         <outlet property="txtFieldFrom" destination="qEb-dp-EEp" id="yeT-cT-Pea"/>
                         <outlet property="txtFieldTo" destination="eSW-wa-UTJ" id="iGN-J3-hcT"/>
                     </connections>
