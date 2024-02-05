@@ -16,12 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        
         let currencyConversionStoryboard = UIStoryboard(name: "CurrencyConversion", bundle: nil)
         guard let currencyConversionViewController = currencyConversionStoryboard.instantiateViewController(withIdentifier: "CurrencyConversionViewController") as? CurrencyConversionViewController else {return true}
         currencyConversionViewController.viewModel = CurrencyConversionViewModel()
         let navigation = UINavigationController(rootViewController: currencyConversionViewController)
         window?.rootViewController = navigation
         window?.makeKeyAndVisible()
+        
+//        let currencyConversionStoryboard = UIStoryboard(name: "CurrencyHistory", bundle: nil)
+//        guard let currencyConversionViewController = currencyConversionStoryboard.instantiateViewController(withIdentifier: "CurrencyHistoryViewController") as? CurrencyHistoryViewController else {return true}
+//        currencyConversionViewController.viewModel = CurrencyHistoryViewModel(currencies: "USD,EUR")
+//        let navigation = UINavigationController(rootViewController: currencyConversionViewController)
+//        window?.rootViewController = navigation
+//        window?.makeKeyAndVisible()
         
         return true
     }

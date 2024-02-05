@@ -35,6 +35,13 @@ class CurrencyConversionViewController: UIViewController {
         self.configureBindings()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.viewModel.getHistory()
+        self.viewModel.getRates()
+    }
+    
     private func configureBindings() {
         viewModel.isLoading
             .bind(to: loadingView.rx.isAnimating)
