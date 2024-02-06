@@ -1,426 +1,56 @@
-//
-//  NetworkCalls.swift
-//  Currency
-//
-//  Created by Saud Temp on 05/02/2024.
-//
-
 import Foundation
 
 final class NetworkCalls {
     static func getHistoricalData(currencies: String, date: String, completion: @escaping (Result<History, Error>) -> Void) {
-        // Example JSON string
-        let jsonString = """
-        {
-            "success": true,
-            "historical": true,
-            "date": "2013-12-24",
-            "timestamp": 1387929599,
-            "base": "GBP",
-            "rates": {
-                "USD": 1.636492,
-                "EUR": 1.196476,
-                "CAD": 1.739516
-            }
+        guard Reachability.shared.isConnected else {
+            completion(.failure(MyError.customError(Constants.InternetIssues)))
+            return
         }
-        """
         
-        if let jsonData = jsonString.data(using: .utf8) {
-            let decoder = JSONDecoder()
+        let urlRequest = URLRequest(url: APIConstants.history(date: date, currencies: currencies).url)
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(MyError.customError(Constants.DataError)))
+                return
+            }
             
             do {
-                let exchangeRate = try decoder.decode(History.self, from: jsonData)
-                completion(.success(exchangeRate))
+                let history = try JSONDecoder().decode(History.self, from: data)
+                completion(.success(history))
             } catch let error {
-                print("Error decoding JSON: \(error)")
                 completion(.failure(error))
             }
-        }
+        }.resume()
     }
     
     static func getLatestCurrencyRates(completion: @escaping (Result<Rate, Error>) -> Void) {
-        // Example JSON string (assuming you have the JSON as a Swift String)
-        let jsonString = """
-        {
-            "success": true,
-            "timestamp": 1707151923,
-            "base": "EUR",
-            "date": "2024-02-05",
-            "rates": {
-                "AED": 3.941676,
-                        "AFN": 79.416305,
-                        "ALL": 103.616527,
-                        "AMD": 436.066126,
-                        "ANG": 1.934583,
-                        "AOA": 893.436395,
-                        "ARS": 889.722172,
-                        "AUD": 1.657466,
-                        "AWG": 1.93443,
-                        "AZN": 1.812991,
-                        "BAM": 1.952031,
-                        "BBD": 2.167315,
-                        "BDT": 117.812516,
-                        "BGN": 1.95599,
-                        "BHD": 0.404563,
-                        "BIF": 3069.331327,
-                        "BMD": 1.073193,
-                        "BND": 1.444524,
-                        "BOB": 7.417815,
-                        "BRL": 5.36983,
-                        "BSD": 1.073427,
-                        "BTC": 2.518495e-5,
-                        "BTN": 89.153914,
-                        "BWP": 14.704744,
-                        "BYN": 3.512917,
-                        "BYR": 21034.578324,
-                        "BZD": 2.163722,
-                        "CAD": 1.453138,
-                        "CDF": 2943.767353,
-                        "CHF": 0.934859,
-                        "CLF": 0.037196,
-                        "CLP": 1026.347599,
-                        "CNY": 7.641457,
-                        "COP": 4243.52227,
-                        "CRC": 554.833841,
-                        "CUC": 1.073193,
-                        "CUP": 28.439608,
-                        "CVE": 109.948425,
-                        "CZK": 24.965646,
-                        "DJF": 191.122742,
-                        "DKK": 7.458244,
-                        "DOP": 63.264466,
-                        "DZD": 144.576602,
-                        "EGP": 33.155323,
-                        "ERN": 16.097892,
-                        "ETB": 60.634706,
-                        "EUR": 1,
-                        "FJD": 2.421021,
-                        "FKP": 0.849537,
-                        "GBP": 0.856708,
-                        "GEL": 2.860075,
-                        "GGP": 0.849537,
-                        "GHS": 13.30926,
-                        "GIP": 0.849537,
-                        "GMD": 72.360014,
-                        "GNF": 9240.189561,
-                        "GTQ": 8.386884,
-                        "GYD": 224.578454,
-                        "HKD": 8.39446,
-                        "HNL": 26.529523,
-                        "HRK": 7.38391,
-                        "HTG": 141.267227,
-                        "HUF": 386.530226,
-                        "IDR": 16949.040762,
-                        "ILS": 3.940844,
-                        "IMP": 0.849537,
-                        "INR": 89.148621,
-                        "IQD": 1405.882531,
-                        "IRR": 45127.755935,
-                        "ISK": 147.854108,
-                        "JEP": 0.849537,
-                        "JMD": 167.508898,
-                        "JOD": 0.761107,
-                        "JPY": 159.723359,
-                        "KES": 172.249941,
-                        "KGS": 95.97587,
-                        "KHR": 4382.919033,
-                        "KMF": 489.912885,
-                        "KPW": 965.873301,
-                        "KRW": 1433.114786,
-                        "KWD": 0.330318,
-                        "KYD": 0.894581,
-                        "KZT": 488.945894,
-                        "LAK": 22263.384378,
-                        "LBP": 16130.087464,
-                        "LKR": 335.671851,
-                        "LRD": 204.024111,
-                        "LSL": 20.304846,
-                        "LTL": 3.16886,
-                        "LVL": 0.649164,
-                        "LYD": 5.178167,
-                        "MAD": 10.776468,
-                        "MDL": 19.11844,
-                        "MGA": 4869.602036,
-                        "MKD": 61.538956,
-                        "MMK": 2254.27872,
-                        "MNT": 3651.35461,
-                        "MOP": 8.648681,
-                        "MRU": 42.600325,
-                        "MUR": 48.637603,
-                        "MVR": 16.522416,
-                        "MWK": 1805.110017,
-                        "MXN": 18.441466,
-                        "MYR": 5.097934,
-                        "MZN": 68.154566,
-                        "NAD": 20.47654,
-                        "NGN": 1502.990373,
-                        "NIO": 39.471788,
-                        "NOK": 11.495387,
-                        "NPR": 142.646223,
-                        "NZD": 1.775028,
-                        "OMR": 0.413125,
-                        "PAB": 1.073437,
-                        "PEN": 4.084599,
-                        "PGK": 3.994962,
-                        "PHP": 60.500703,
-                        "PKR": 300.118512,
-                        "PLN": 4.340848,
-                        "PYG": 7799.013553,
-                        "QAR": 3.907454,
-                        "RON": 4.975212,
-                        "RSD": 117.171014,
-                        "RUB": 97.665956,
-                        "RWF": 1370.467169,
-                        "SAR": 4.024654,
-                        "SBD": 9.042664,
-                        "SCR": 14.473263,
-                        "SDG": 644.455236,
-                        "SEK": 11.401159,
-                        "SGD": 1.446439,
-                        "SHP": 1.355424,
-                        "SLE": 24.168296,
-                        "SLL": 21195.556996,
-                        "SOS": 612.793749,
-                        "SRD": 39.198902,
-                        "STD": 22212.923605,
-                        "SYP": 13953.435728,
-                        "SZL": 20.284584,
-                        "THB": 38.442156,
-                        "TJS": 11.72732,
-                        "TMT": 3.766907,
-                        "TND": 3.355902,
-                        "TOP": 2.545395,
-                        "TRY": 32.790118,
-                        "TTD": 7.287065,
-                        "TWD": 33.730986,
-                        "TZS": 2709.811242,
-                        "UAH": 40.313123,
-                        "UGX": 4104.075439,
-                        "USD": 1.073193,
-                        "UYU": 41.959372,
-                        "UZS": 13361.24983,
-                        "VEF": 3879575.848906,
-                        "VES": 38.838775,
-                        "VND": 26167.122755,
-                        "VUV": 127.793788,
-                        "WST": 2.936243,
-                        "XAF": 654.698942,
-                        "XAG": 0.048144,
-                        "XAU": 0.000531,
-                        "XCD": 2.900357,
-                        "XDR": 0.805345,
-                        "XOF": 646.062139,
-                        "XPF": 119.331742,
-                        "YER": 268.673519,
-                        "ZAR": 20.459988,
-                        "ZMK": 9660.020307,
-                        "ZMW": 29.11732,
-                        "ZWL": 345.567635
+        guard Reachability.shared.isConnected else {
+            completion(.failure(MyError.customError(Constants.InternetIssues)))
+            return
+        }
+        let urlRequest = URLRequest(url: APIConstants.rates.url)
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
-        }
-        """
-
-        guard let jsonData = jsonString.data(using: .utf8) else {
-            fatalError("Unable to convert JSON string to Data")
-        }
-
-        do {
-            let decoder = JSONDecoder()
-            let response = try decoder.decode(Rate.self, from: jsonData)
-            completion(.success(response))
-        } catch let error {
-            completion(.failure(error))
-        }
-    }
-    
-    static func getCurrencySymbolsData(completion: @escaping (Result<Symbols, Error>) -> Void) {
-        // Simulate the JSON data
-        let jsonData = """
-        {
-            "success": true,
-            "symbols": {
-                "AED": "United Arab Emirates Dirham",
-                        "AFN": "Afghan Afghani",
-                        "ALL": "Albanian Lek",
-                        "AMD": "Armenian Dram",
-                        "ANG": "Netherlands Antillean Guilder",
-                        "AOA": "Angolan Kwanza",
-                        "ARS": "Argentine Peso",
-                        "AUD": "Australian Dollar",
-                        "AWG": "Aruban Florin",
-                        "AZN": "Azerbaijani Manat",
-                        "BAM": "Bosnia-Herzegovina Convertible Mark",
-                        "BBD": "Barbadian Dollar",
-                        "BDT": "Bangladeshi Taka",
-                        "BGN": "Bulgarian Lev",
-                        "BHD": "Bahraini Dinar",
-                        "BIF": "Burundian Franc",
-                        "BMD": "Bermudan Dollar",
-                        "BND": "Brunei Dollar",
-                        "BOB": "Bolivian Boliviano",
-                        "BRL": "Brazilian Real",
-                        "BSD": "Bahamian Dollar",
-                        "BTC": "Bitcoin",
-                        "BTN": "Bhutanese Ngultrum",
-                        "BWP": "Botswanan Pula",
-                        "BYN": "New Belarusian Ruble",
-                        "BYR": "Belarusian Ruble",
-                        "BZD": "Belize Dollar",
-                        "CAD": "Canadian Dollar",
-                        "CDF": "Congolese Franc",
-                        "CHF": "Swiss Franc",
-                        "CLF": "Chilean Unit of Account (UF)",
-                        "CLP": "Chilean Peso",
-                        "CNY": "Chinese Yuan",
-                        "COP": "Colombian Peso",
-                        "CRC": "Costa Rican Colón",
-                        "CUC": "Cuban Convertible Peso",
-                        "CUP": "Cuban Peso",
-                        "CVE": "Cape Verdean Escudo",
-                        "CZK": "Czech Republic Koruna",
-                        "DJF": "Djiboutian Franc",
-                        "DKK": "Danish Krone",
-                        "DOP": "Dominican Peso",
-                        "DZD": "Algerian Dinar",
-                        "EGP": "Egyptian Pound",
-                        "ERN": "Eritrean Nakfa",
-                        "ETB": "Ethiopian Birr",
-                        "EUR": "Euro",
-                        "FJD": "Fijian Dollar",
-                        "FKP": "Falkland Islands Pound",
-                        "GBP": "British Pound Sterling",
-                        "GEL": "Georgian Lari",
-                        "GGP": "Guernsey Pound",
-                        "GHS": "Ghanaian Cedi",
-                        "GIP": "Gibraltar Pound",
-                        "GMD": "Gambian Dalasi",
-                        "GNF": "Guinean Franc",
-                        "GTQ": "Guatemalan Quetzal",
-                        "GYD": "Guyanaese Dollar",
-                        "HKD": "Hong Kong Dollar",
-                        "HNL": "Honduran Lempira",
-                        "HRK": "Croatian Kuna",
-                        "HTG": "Haitian Gourde",
-                        "HUF": "Hungarian Forint",
-                        "IDR": "Indonesian Rupiah",
-                        "ILS": "Israeli New Sheqel",
-                        "IMP": "Manx pound",
-                        "INR": "Indian Rupee",
-                        "IQD": "Iraqi Dinar",
-                        "IRR": "Iranian Rial",
-                        "ISK": "Icelandic Króna",
-                        "JEP": "Jersey Pound",
-                        "JMD": "Jamaican Dollar",
-                        "JOD": "Jordanian Dinar",
-                        "JPY": "Japanese Yen",
-                        "KES": "Kenyan Shilling",
-                        "KGS": "Kyrgystani Som",
-                        "KHR": "Cambodian Riel",
-                        "KMF": "Comorian Franc",
-                        "KPW": "North Korean Won",
-                        "KRW": "South Korean Won",
-                        "KWD": "Kuwaiti Dinar",
-                        "KYD": "Cayman Islands Dollar",
-                        "KZT": "Kazakhstani Tenge",
-                        "LAK": "Laotian Kip",
-                        "LBP": "Lebanese Pound",
-                        "LKR": "Sri Lankan Rupee",
-                        "LRD": "Liberian Dollar",
-                        "LSL": "Lesotho Loti",
-                        "LTL": "Lithuanian Litas",
-                        "LVL": "Latvian Lats",
-                        "LYD": "Libyan Dinar",
-                        "MAD": "Moroccan Dirham",
-                        "MDL": "Moldovan Leu",
-                        "MGA": "Malagasy Ariary",
-                        "MKD": "Macedonian Denar",
-                        "MMK": "Myanma Kyat",
-                        "MNT": "Mongolian Tugrik",
-                        "MOP": "Macanese Pataca",
-                        "MRU": "Mauritanian Ouguiya",
-                        "MUR": "Mauritian Rupee",
-                        "MVR": "Maldivian Rufiyaa",
-                        "MWK": "Malawian Kwacha",
-                        "MXN": "Mexican Peso",
-                        "MYR": "Malaysian Ringgit",
-                        "MZN": "Mozambican Metical",
-                        "NAD": "Namibian Dollar",
-                        "NGN": "Nigerian Naira",
-                        "NIO": "Nicaraguan Córdoba",
-                        "NOK": "Norwegian Krone",
-                        "NPR": "Nepalese Rupee",
-                        "NZD": "New Zealand Dollar",
-                        "OMR": "Omani Rial",
-                        "PAB": "Panamanian Balboa",
-                        "PEN": "Peruvian Nuevo Sol",
-                        "PGK": "Papua New Guinean Kina",
-                        "PHP": "Philippine Peso",
-                        "PKR": "Pakistani Rupee",
-                        "PLN": "Polish Zloty",
-                        "PYG": "Paraguayan Guarani",
-                        "QAR": "Qatari Rial",
-                        "RON": "Romanian Leu",
-                        "RSD": "Serbian Dinar",
-                        "RUB": "Russian Ruble",
-                        "RWF": "Rwandan Franc",
-                        "SAR": "Saudi Riyal",
-                        "SBD": "Solomon Islands Dollar",
-                        "SCR": "Seychellois Rupee",
-                        "SDG": "South Sudanese Pound",
-                        "SEK": "Swedish Krona",
-                        "SGD": "Singapore Dollar",
-                        "SHP": "Saint Helena Pound",
-                        "SLE": "Sierra Leonean Leone",
-                        "SLL": "Sierra Leonean Leone",
-                        "SOS": "Somali Shilling",
-                        "SRD": "Surinamese Dollar",
-                        "STD": "São Tomé and Príncipe Dobra",
-                        "SVC": "Salvadoran Colón",
-                        "SYP": "Syrian Pound",
-                        "SZL": "Swazi Lilangeni",
-                        "THB": "Thai Baht",
-                        "TJS": "Tajikistani Somoni",
-                        "TMT": "Turkmenistani Manat",
-                        "TND": "Tunisian Dinar",
-                        "TOP": "Tongan Paʻanga",
-                        "TRY": "Turkish Lira",
-                        "TTD": "Trinidad and Tobago Dollar",
-                        "TWD": "New Taiwan Dollar",
-                        "TZS": "Tanzanian Shilling",
-                        "UAH": "Ukrainian Hryvnia",
-                        "UGX": "Ugandan Shilling",
-                        "USD": "United States Dollar",
-                        "UYU": "Uruguayan Peso",
-                        "UZS": "Uzbekistan Som",
-                        "VEF": "Venezuelan Bolívar Fuerte",
-                        "VES": "Sovereign Bolivar",
-                        "VND": "Vietnamese Dong",
-                        "VUV": "Vanuatu Vatu",
-                        "WST": "Samoan Tala",
-                        "XAF": "CFA Franc BEAC",
-                        "XAG": "Silver (troy ounce)",
-                        "XAU": "Gold (troy ounce)",
-                        "XCD": "East Caribbean Dollar",
-                        "XDR": "Special Drawing Rights",
-                        "XOF": "CFA Franc BCEAO",
-                        "XPF": "CFP Franc",
-                        "YER": "Yemeni Rial",
-                        "ZAR": "South African Rand",
-                        "ZMK": "Zambian Kwacha (pre-2013)",
-                        "ZMW": "Zambian Kwacha",
-                        "ZWL": "Zimbabwean Dollar"
+            
+            guard let data = data else {
+                completion(.failure(MyError.customError(Constants.DataError)))
+                return
             }
-        }
-        """
-        if let jsonData = jsonData.data(using: .utf8) {
-            let decoder = JSONDecoder()
             
             do {
-                let response = try decoder.decode(Symbols.self, from: jsonData)
-                completion(.success(response))
+                let rate = try JSONDecoder().decode(Rate.self, from: data)
+                completion(.success(rate))
             } catch let error {
                 completion(.failure(error))
             }
-        }
+        }.resume()
     }
 }

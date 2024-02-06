@@ -1,15 +1,8 @@
-//
-//  CurrencyHistoryViewController.swift
-//  Currency
-//
-//  Created by Saud Temp on 04/02/2024.
-//
-
 import UIKit
 import RxSwift
 import RxCocoa
 
-class CurrencyHistoryViewController: UIViewController {
+class CurrencyHistoryViewController: BaseViewController {
     
     lazy var loadingView: LoadingView = {
         let loadingView = LoadingView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -27,38 +20,49 @@ class CurrencyHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        self.registerTableViewCells()
+        self.registerBindings()
+    }
+    
+    private func registerBindings() {
         viewModel.isLoading
             .bind(to: loadingView.rx.isAnimating)
             .disposed(by: disposeBag)
         
         viewModel.isLoading.subscribe({ event in
-            self.view.isUserInteractionEnabled = !(event.element ?? false)
+            DispatchQueue.main.async {
+                self.view.isUserInteractionEnabled = !(event.element ?? false)
+            }
         }).disposed(by: disposeBag)
         
-        self.registerTableViewCells()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         self.viewModel.getHistory()
         self.viewModel.reload = { [weak self] in
             self?.tblViewHistoricalList.reloadData()
             self?.tblViewOtherCurrencies.reloadData()
         }
+        
+        self.viewModel.errorSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.showError(error)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func registerTableViewCells() {
-        tblViewHistoricalList.register(UINib(nibName: "HistoryTableViewCell", bundle: nil),
-                                       forCellReuseIdentifier: "HistoryTableViewCell")
-        tblViewOtherCurrencies.register(UINib(nibName: "ConversionTableViewCell", bundle: nil),
-                                       forCellReuseIdentifier: "ConversionTableViewCell")
+        tblViewHistoricalList.register(UINib(nibName: Constants.HistoryTableViewCell, bundle: nil),
+                                       forCellReuseIdentifier: Constants.HistoryTableViewCell)
+        tblViewOtherCurrencies.register(UINib(nibName: Constants.ConversionTableViewCell, bundle: nil),
+                                        forCellReuseIdentifier: Constants.ConversionTableViewCell)
     }
 }
 
 extension CurrencyHistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         switch tableView {
         case tblViewHistoricalList:
             return self.viewModel.items.count
@@ -72,11 +76,11 @@ extension CurrencyHistoryViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case tblViewHistoricalList:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTableViewCell", for: indexPath) as! HistoryTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.HistoryTableViewCell, for: indexPath) as! HistoryTableViewCell
             cell.configure(history: viewModel.items[indexPath.row])
             return cell
         case tblViewOtherCurrencies:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ConversionTableViewCell", for: indexPath) as! ConversionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ConversionTableViewCell, for: indexPath) as! ConversionTableViewCell
             cell.configure(from: self.viewModel.fromCurrency,
                            to: self.viewModel.conversions.0[indexPath.row],
                            symbol: self.viewModel.conversions.1[indexPath.row])

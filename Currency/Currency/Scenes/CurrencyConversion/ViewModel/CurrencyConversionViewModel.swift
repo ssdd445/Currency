@@ -3,7 +3,7 @@ import RxCocoa
 import Foundation
 import UIKit
 
-class CurrencyConversionViewModel {
+final class CurrencyConversionViewModel {
     let buttonFromTap = PublishSubject<Void>()
     let buttonToTap = PublishSubject<Void>()
     let buttonDoneTap = PublishSubject<Void>()
@@ -30,10 +30,8 @@ class CurrencyConversionViewModel {
     let isFromPickerVisible = BehaviorRelay<Bool>(value: true)
     let isToPickerVisible = BehaviorRelay<Bool>(value: true)
     
+    var errorSubject = PublishSubject<Error>()
     let coordinator: MainCoordinator
-    
-    private var toTextFieldValue = ""
-    private var fromTextFieldValue = ""
     
     private let disposeBag = DisposeBag()
     
@@ -69,6 +67,8 @@ class CurrencyConversionViewModel {
             if ((!from.isEmpty) && (!to.isEmpty)) {
                 coordinator.navigateToDetailsScreen(currencies: [from, to].joined(separator: ","), 
                                                     conversions: self.getTenConvertedValues())
+            } else {
+                self.errorSubject.onNext(MyError.customError(Constants.FieldsSelected))
             }
         }).disposed(by: disposeBag)
         
@@ -96,52 +96,38 @@ class CurrencyConversionViewModel {
             .bind(to: toOutputSubject)
             .disposed(by: disposeBag)
         
-        fromOutputSubject
-            .subscribe(onNext: { result in
-                print("From Result: \(result)")
-            })
-            .disposed(by: disposeBag)
-        
-        toOutputSubject
-            .subscribe(onNext: { result in
-                print("To Result: \(result)")
-            })
-            .disposed(by: disposeBag)
-        
         selectFromItem
             .withLatestFrom(pickerFromData) { (index, items) -> String in
-                if (!self.selectedToItem.value.isEmpty) {
-                    self.fromTextField.accept(self.fromTextField.value)
-                }
-                return items[index]
+                return items.isEmpty ? "" : items[index]
             }
             .bind(to: selectedFromItem)
             .disposed(by: disposeBag)
         
         selectToItem
             .withLatestFrom(pickerToData) { (index, items) -> String in
-                
-                return items[index]
+                return items.isEmpty ? "" : items[index]
             }
             .bind(to: selectedToItem)
             .disposed(by: disposeBag)
         
         selectToItem
-            .subscribe(onNext: { value in
+            .subscribe(onNext: { [weak self] value in
+                guard let self = self else {return}
                 if (!self.selectedFromItem.value.isEmpty) {
                     self.fromTextField.accept(self.fromTextField.value)
                 }
             }).disposed(by: disposeBag)
         
         selectFromItem
-            .subscribe(onNext: { value in
+            .subscribe(onNext: { [weak self] value in
+                guard let self = self else {return}
                 if (!self.selectedFromItem.value.isEmpty) {
                     self.fromTextField.accept(self.fromTextField.value)
                 }
             }).disposed(by: disposeBag)
     }
     
-    private func convertCurrency(amount: Double,
+    internal func convertCurrency(amount: Double,
                                  from sourceCurrency: String,
                                  to targetCurrency: String,
                                  rates: [String: Double]?) -> Double? {
@@ -171,12 +157,16 @@ class CurrencyConversionViewModel {
             self?.isLoading.onNext(false)
             switch result {
             case .success(let rates):
-                self?.ratesData.accept(rates)
-                self?.pickerFromData.accept(rates.rates.keys.map{$0})
-                self?.pickerToData.accept(rates.rates.keys.map{$0})
+                DispatchQueue.main.async {
+                    self?.ratesData.accept(rates)
+                    self?.pickerFromData.accept(rates.rates.keys.map{$0})
+                    self?.pickerToData.accept(rates.rates.keys.map{$0})
+                }
             case .failure(let error):
-                print(error.localizedDescription)
-                
+                DispatchQueue.main.async {
+                    self?.errorSubject.onNext(error)
+                    print(error.localizedDescription)
+                }
             }
         }
     }

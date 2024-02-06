@@ -1,17 +1,21 @@
-//
-//  BaseViewController.swift
-//  Currency
-//
-//  Created by Saud Temp on 04/02/2024.
-//
-
 import UIKit
 
 class BaseViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+    }
+    
+    func showError(_ error: Error) {
+        var message = ""
+        if let error = error as? MyError {
+            message = error.localizedDescription
+        } else {
+            message = error.localizedDescription
+        }
+        let alert = UIAlertController(title: Constants.Error, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Constants.OK, style: .default))
+        present(alert, animated: true)
     }
 }

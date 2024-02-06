@@ -1,10 +1,3 @@
-//
-//  HistoryTableViewCell.swift
-//  Currency
-//
-//  Created by Saud Temp on 05/02/2024.
-//
-
 import UIKit
 
 class HistoryTableViewCell: UITableViewCell {
@@ -27,11 +20,9 @@ class HistoryTableViewCell: UITableViewCell {
         self.lblDate.text = history.date
         
         var detail = ""
-        
         for (_, value) in history.rates.enumerated() {
             detail.append("\(value.key) \(value.value) \n")
         }
-
         self.lblDescription.text = detail
     }
     
