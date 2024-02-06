@@ -1,25 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17122"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Currency History View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CurrencyHistoryViewController" id="Y6W-OH-hqX" customClass="CurrencyHistoryViewController" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="N6R-y5-Wct">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Xdy-ky-kco">
+                                        <rect key="frame" x="0.0" y="0.0" width="196.66666666666666" height="759"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Y6W-OH-hqX" id="jxj-81-VGk"/>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="3it-hz-K5b"/>
+                                        </connections>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="TIo-Zp-Nxx">
+                                        <rect key="frame" x="196.66666666666663" y="0.0" width="196.33333333333337" height="759"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Y6W-OH-hqX" id="a5n-HQ-Syi"/>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="1w1-b0-L0G"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="TIo-Zp-Nxx" secondAttribute="bottom" id="4r6-cX-FXG"/>
+                                    <constraint firstItem="TIo-Zp-Nxx" firstAttribute="top" secondItem="N6R-y5-Wct" secondAttribute="top" id="I0z-Wg-TUA"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xdy-ky-kco" secondAttribute="bottom" id="dwl-vA-1Nn"/>
+                                    <constraint firstItem="Xdy-ky-kco" firstAttribute="top" secondItem="N6R-y5-Wct" secondAttribute="top" id="qVv-a8-3La"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="N6R-y5-Wct" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Moi-eV-xcL"/>
+                            <constraint firstItem="N6R-y5-Wct" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="RyM-Kb-zvS"/>
+                            <constraint firstAttribute="trailing" secondItem="N6R-y5-Wct" secondAttribute="trailing" id="iyp-WO-KXq"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="N6R-y5-Wct" secondAttribute="bottom" id="su9-Us-5yv"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tblViewHistoricalList" destination="Xdy-ky-kco" id="UiR-SK-Pud"/>
+                        <outlet property="tblViewOtherCurrencies" destination="TIo-Zp-Nxx" id="Cof-hm-Aeb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="139" y="-2"/>
         </scene>
     </scenes>
     <resources>

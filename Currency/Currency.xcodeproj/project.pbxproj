@@ -29,6 +29,16 @@
 		818B20CA2B6F757100A7C91F /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818B20C92B6F757100A7C91F /* Reactive.swift */; };
 		818B20CC2B6F7A3F00A7C91F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818B20CB2B6F7A3F00A7C91F /* BaseViewController.swift */; };
 		818B20CE2B6F87F900A7C91F /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818B20CD2B6F87F900A7C91F /* APIConstants.swift */; };
+		81A216A52B7107D7008EEFE8 /* Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216A42B7107D7008EEFE8 /* Symbols.swift */; };
+		81A216A72B711190008EEFE8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216A62B711190008EEFE8 /* History.swift */; };
+		81A216AB2B7117BB008EEFE8 /* NetworkCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216AA2B7117BB008EEFE8 /* NetworkCalls.swift */; };
+		81A216AF2B712637008EEFE8 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216AD2B712637008EEFE8 /* HistoryTableViewCell.swift */; };
+		81A216B02B712637008EEFE8 /* HistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81A216AE2B712637008EEFE8 /* HistoryTableViewCell.xib */; };
+		81A216B22B714A32008EEFE8 /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216B12B714A32008EEFE8 /* Rate.swift */; };
+		81A216B42B7152A4008EEFE8 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216B32B7152A4008EEFE8 /* Double.swift */; };
+		81A216B72B722590008EEFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216B62B722590008EEFE8 /* Coordinator.swift */; };
+		81A216BA2B7233D2008EEFE8 /* ConversionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216B82B7233D2008EEFE8 /* ConversionTableViewCell.swift */; };
+		81A216BB2B7233D2008EEFE8 /* ConversionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81A216B92B7233D2008EEFE8 /* ConversionTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +81,16 @@
 		818B20C92B6F757100A7C91F /* Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive.swift; sourceTree = "<group>"; };
 		818B20CB2B6F7A3F00A7C91F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		818B20CD2B6F87F900A7C91F /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		81A216A42B7107D7008EEFE8 /* Symbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbols.swift; sourceTree = "<group>"; };
+		81A216A62B711190008EEFE8 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		81A216AA2B7117BB008EEFE8 /* NetworkCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCalls.swift; sourceTree = "<group>"; };
+		81A216AD2B712637008EEFE8 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		81A216AE2B712637008EEFE8 /* HistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTableViewCell.xib; sourceTree = "<group>"; };
+		81A216B12B714A32008EEFE8 /* Rate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rate.swift; sourceTree = "<group>"; };
+		81A216B32B7152A4008EEFE8 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		81A216B62B722590008EEFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		81A216B82B7233D2008EEFE8 /* ConversionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionTableViewCell.swift; sourceTree = "<group>"; };
+		81A216B92B7233D2008EEFE8 /* ConversionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversionTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +205,7 @@
 		818B20AC2B6F65E600A7C91F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				81A216B52B72257D008EEFE8 /* Coordinator */,
 				818B20AD2B6F65ED00A7C91F /* DataStores */,
 			);
 			path = Domain;
@@ -193,6 +214,7 @@
 		818B20AD2B6F65ED00A7C91F /* DataStores */ = {
 			isa = PBXGroup;
 			children = (
+				81A216AA2B7117BB008EEFE8 /* NetworkCalls.swift */,
 			);
 			path = DataStores;
 			sourceTree = "<group>";
@@ -254,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				818B20C92B6F757100A7C91F /* Reactive.swift */,
+				81A216B32B7152A4008EEFE8 /* Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -278,6 +301,8 @@
 		818B20BD2B6F718B00A7C91F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				81A216A42B7107D7008EEFE8 /* Symbols.swift */,
+				81A216B12B714A32008EEFE8 /* Rate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -285,6 +310,7 @@
 		818B20BE2B6F721F00A7C91F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				81A216A62B711190008EEFE8 /* History.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -292,6 +318,7 @@
 		818B20BF2B6F722400A7C91F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				81A216AC2B71261D008EEFE8 /* TableViewCells */,
 				818B20C12B6F72C100A7C91F /* CurrencyHistoryViewController.swift */,
 				818B20C32B6F72D000A7C91F /* CurrencyHistory.storyboard */,
 			);
@@ -304,6 +331,25 @@
 				818B20C52B6F72F600A7C91F /* CurrencyHistoryViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		81A216AC2B71261D008EEFE8 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				81A216AD2B712637008EEFE8 /* HistoryTableViewCell.swift */,
+				81A216AE2B712637008EEFE8 /* HistoryTableViewCell.xib */,
+				81A216B82B7233D2008EEFE8 /* ConversionTableViewCell.swift */,
+				81A216B92B7233D2008EEFE8 /* ConversionTableViewCell.xib */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		81A216B52B72257D008EEFE8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				81A216B62B722590008EEFE8 /* Coordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,7 +466,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				818B207D2B6F526500A7C91F /* LaunchScreen.storyboard in Resources */,
+				81A216B02B712637008EEFE8 /* HistoryTableViewCell.xib in Resources */,
 				818B20B82B6F6AA300A7C91F /* CurrencyConversion.storyboard in Resources */,
+				81A216BB2B7233D2008EEFE8 /* ConversionTableViewCell.xib in Resources */,
 				818B20C42B6F72D000A7C91F /* CurrencyHistory.storyboard in Resources */,
 				818B207A2B6F526500A7C91F /* Assets.xcassets in Resources */,
 			);
@@ -447,15 +495,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81A216B42B7152A4008EEFE8 /* Double.swift in Sources */,
 				818B20C62B6F72F600A7C91F /* CurrencyHistoryViewModel.swift in Sources */,
+				81A216B22B714A32008EEFE8 /* Rate.swift in Sources */,
 				814FB5932B6FDA04005C1B80 /* Constants.swift in Sources */,
+				81A216AB2B7117BB008EEFE8 /* NetworkCalls.swift in Sources */,
 				814FB5912B6FA68F005C1B80 /* CustomTextField.swift in Sources */,
 				818B20B62B6F6A8700A7C91F /* CurrencyConversionViewController.swift in Sources */,
 				818B20712B6F526400A7C91F /* AppDelegate.swift in Sources */,
+				81A216B72B722590008EEFE8 /* Coordinator.swift in Sources */,
 				818B20BC2B6F6C0600A7C91F /* CurrencyConversionViewModel.swift in Sources */,
 				818B20C22B6F72C100A7C91F /* CurrencyHistoryViewController.swift in Sources */,
 				818B20CE2B6F87F900A7C91F /* APIConstants.swift in Sources */,
+				81A216AF2B712637008EEFE8 /* HistoryTableViewCell.swift in Sources */,
 				818B20CC2B6F7A3F00A7C91F /* BaseViewController.swift in Sources */,
+				81A216A52B7107D7008EEFE8 /* Symbols.swift in Sources */,
+				81A216A72B711190008EEFE8 /* History.swift in Sources */,
+				81A216BA2B7233D2008EEFE8 /* ConversionTableViewCell.swift in Sources */,
 				818B20CA2B6F757100A7C91F /* Reactive.swift in Sources */,
 				818B20C82B6F755100A7C91F /* LoadingView.swift in Sources */,
 			);
