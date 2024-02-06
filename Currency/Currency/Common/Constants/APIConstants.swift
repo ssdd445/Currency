@@ -4,14 +4,14 @@ enum APIConstants {
     private var baseURL: String { return "http://data.fixer.io/api" }
     private var accessKey: String { return "e00895374411f4cfcc7d637a78dc74bf" }
     
-    case symbols
-    case history(String, String)
+    case rates
+    case history(date: String, currencies: String)
     
     private var fullPath: String {
         var endpoint:String
         switch self {
-        case .symbols:
-            endpoint = "/symbols?access_key=\(accessKey)"
+        case .rates:
+            endpoint = "/latest?access_key=\(accessKey)"
         case .history(let date, let currencies):
             endpoint = "/\(date)?access_key=\(accessKey)&symbols=\(currencies)"
         }

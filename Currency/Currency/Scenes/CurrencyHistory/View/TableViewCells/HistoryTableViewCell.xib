@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="spR-Y2-j1h">
-                        <rect key="frame" x="16" y="16" width="409" height="103"/>
+                        <rect key="frame" x="16" y="5" width="409" height="125"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cp-jD-wjA">
                                 <rect key="frame" x="0.0" y="0.0" width="409" height="27"/>
@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkn-gz-Yd6">
-                                <rect key="frame" x="0.0" y="35" width="409" height="68"/>
+                                <rect key="frame" x="0.0" y="35" width="409" height="90"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -37,8 +37,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="spR-Y2-j1h" secondAttribute="trailing" constant="16" id="3iu-wR-PvH"/>
-                    <constraint firstItem="spR-Y2-j1h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="KpZ-nb-pYD"/>
-                    <constraint firstAttribute="bottom" secondItem="spR-Y2-j1h" secondAttribute="bottom" constant="16" id="OC4-fn-2cq"/>
+                    <constraint firstItem="spR-Y2-j1h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="KpZ-nb-pYD"/>
+                    <constraint firstAttribute="bottom" secondItem="spR-Y2-j1h" secondAttribute="bottom" constant="5" id="OC4-fn-2cq"/>
                     <constraint firstItem="spR-Y2-j1h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Szg-Vb-yxP"/>
                     <constraint firstItem="1cp-jD-wjA" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.2" id="Wdi-dw-eLn"/>
                 </constraints>

@@ -39,6 +39,8 @@
 		81A216B72B722590008EEFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216B62B722590008EEFE8 /* Coordinator.swift */; };
 		81A216BA2B7233D2008EEFE8 /* ConversionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216B82B7233D2008EEFE8 /* ConversionTableViewCell.swift */; };
 		81A216BB2B7233D2008EEFE8 /* ConversionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81A216B92B7233D2008EEFE8 /* ConversionTableViewCell.xib */; };
+		81A216BD2B724246008EEFE8 /* MyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216BC2B724246008EEFE8 /* MyError.swift */; };
+		81A216BF2B7247DC008EEFE8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A216BE2B7247DC008EEFE8 /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		81A216B62B722590008EEFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		81A216B82B7233D2008EEFE8 /* ConversionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionTableViewCell.swift; sourceTree = "<group>"; };
 		81A216B92B7233D2008EEFE8 /* ConversionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversionTableViewCell.xib; sourceTree = "<group>"; };
+		81A216BC2B724246008EEFE8 /* MyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyError.swift; sourceTree = "<group>"; };
+		81A216BE2B7247DC008EEFE8 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +272,7 @@
 				818B20C72B6F755100A7C91F /* LoadingView.swift */,
 				818B20CB2B6F7A3F00A7C91F /* BaseViewController.swift */,
 				814FB5902B6FA68F005C1B80 /* CustomTextField.swift */,
+				81A216BE2B7247DC008EEFE8 /* Reachability.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 			children = (
 				818B20C92B6F757100A7C91F /* Reactive.swift */,
 				81A216B32B7152A4008EEFE8 /* Double.swift */,
+				81A216BC2B724246008EEFE8 /* MyError.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -503,11 +509,13 @@
 				814FB5912B6FA68F005C1B80 /* CustomTextField.swift in Sources */,
 				818B20B62B6F6A8700A7C91F /* CurrencyConversionViewController.swift in Sources */,
 				818B20712B6F526400A7C91F /* AppDelegate.swift in Sources */,
+				81A216BD2B724246008EEFE8 /* MyError.swift in Sources */,
 				81A216B72B722590008EEFE8 /* Coordinator.swift in Sources */,
 				818B20BC2B6F6C0600A7C91F /* CurrencyConversionViewModel.swift in Sources */,
 				818B20C22B6F72C100A7C91F /* CurrencyHistoryViewController.swift in Sources */,
 				818B20CE2B6F87F900A7C91F /* APIConstants.swift in Sources */,
 				81A216AF2B712637008EEFE8 /* HistoryTableViewCell.swift in Sources */,
+				81A216BF2B7247DC008EEFE8 /* Reachability.swift in Sources */,
 				818B20CC2B6F7A3F00A7C91F /* BaseViewController.swift in Sources */,
 				81A216A52B7107D7008EEFE8 /* Symbols.swift in Sources */,
 				81A216A72B711190008EEFE8 /* History.swift in Sources */,
@@ -685,23 +693,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X6CGCMD9N3;
+				DEVELOPMENT_TEAM = RK6Y9B54HJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Currency/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Currency needs to access your network data";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.testTask.Andela.Currency;
+				PRODUCT_BUNDLE_IDENTIFIER = com.testTask.Andela.Currencyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -717,23 +729,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X6CGCMD9N3;
+				DEVELOPMENT_TEAM = RK6Y9B54HJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Currency/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Currency needs to access your network data";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.testTask.Andela.Currency;
+				PRODUCT_BUNDLE_IDENTIFIER = com.testTask.Andela.Currencyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

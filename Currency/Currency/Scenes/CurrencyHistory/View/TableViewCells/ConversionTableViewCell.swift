@@ -1,10 +1,3 @@
-//
-//  ConversionTableViewCell.swift
-//  Currency
-//
-//  Created by Saud Temp on 06/02/2024.
-//
-
 import UIKit
 
 class ConversionTableViewCell: UITableViewCell {

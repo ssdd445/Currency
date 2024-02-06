@@ -1,33 +1,17 @@
-//
-//  CurrencyHistoryViewModel.swift
-//  Currency
-//
-//  Created by Saud Temp on 04/02/2024.
-//
-
 import UIKit
 import RxSwift
 import RxCocoa
 
-class CurrencyHistoryViewModel {
+final class CurrencyHistoryViewModel {
     
-    var items: [History] = []
-    /*History(success: true, timestamp: 123, historical: true, base: "GBP", date: "2024-02-02", rates: ["USD": 1.232,
-     "GBP": 1.00,
-     "EUR": 1.12]),
-     History(success: true, timestamp: 1235, historical: true, base: "GBP", date: "2024-03-03", rates: ["USD": 1.232,
-     "GBP": 1.023,
-     "EUR": 1.121]),
-     History(success: true, timestamp: 1235, historical: true, base: "GBP", date: "2024-04-04", rates: ["USD": 1.202,
-     "GBP": 1.011,
-     "EUR": 1.95])]*/
+    var items = [History]()
     private let currencies: String
     let conversions: ([String], [String])
-    
     var fromCurrency: String
-    
+    let dispatchGroup = DispatchGroup()
     let isLoading = PublishSubject<Bool>()
     var reload: (() -> ())?
+    var errorSubject = PublishSubject<Error>()
     
     init(currencies: String, conversions: ([String], [String])) {
         self.currencies = currencies
@@ -36,21 +20,31 @@ class CurrencyHistoryViewModel {
     }
     
     func getHistory() {
+        self.isLoading.onNext(true)
         for i in 1...3 {
+            self.dispatchGroup.enter()
             NetworkCalls.getHistoricalData(currencies: self.currencies,
-                                           date: self.getThreePreviousDays(i) ?? "") { [weak self] result in
+                                           date: self.getPreviousDay(i) ?? "") { [weak self] result in
+                self?.isLoading.onNext(false)
+                self?.dispatchGroup.leave()
                 switch result {
                 case .success(let history):
                     self?.items.append(history)
-                    self?.reload?()
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self?.errorSubject.onNext(error)
+                        print(error.localizedDescription)
+                    }
                 }
             }
         }
+        
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.reload?()
+        }
     }
     
-    private func getThreePreviousDays(_ num: Int)-> String? {
+    internal func getPreviousDay(_ num: Int) -> String? {
         let currentDate = Date()
         let calendar = Calendar.current
         if let threeDaysBack = calendar.date(byAdding: .day, value: -num, to: currentDate) {
@@ -59,7 +53,7 @@ class CurrencyHistoryViewModel {
             let formattedDate = dateFormatter.string(from: threeDaysBack)
             return formattedDate
         } else {
-            print("Error calculating the date")
+            errorSubject.onNext(MyError.customError(Constants.DateError))
             return nil
         }
     }

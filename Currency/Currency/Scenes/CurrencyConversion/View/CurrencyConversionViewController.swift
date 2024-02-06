@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class CurrencyConversionViewController: UIViewController {
+class CurrencyConversionViewController: BaseViewController {
     
     lazy var loadingView: LoadingView = {
         let loadingView = LoadingView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -33,21 +33,27 @@ class CurrencyConversionViewController: UIViewController {
         self.txtFieldFrom.becomeFirstResponder()
         
         self.configureBindings()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         self.viewModel.getRates()
     }
     
     private func configureBindings() {
+        self.viewModel.errorSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.showError(error)
+                }
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.isLoading
             .bind(to: loadingView.rx.isAnimating)
             .disposed(by: disposeBag)
         
         viewModel.isLoading.subscribe({ event in
-            self.view.isUserInteractionEnabled = !(event.element ?? false)
+            DispatchQueue.main.async {
+                self.view.isUserInteractionEnabled = !(event.element ?? false)
+            }
         }).disposed(by: disposeBag)
         
         buttonFrom.rx.tap
