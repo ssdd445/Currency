@@ -1,6 +1,7 @@
 import RxSwift
 import RxCocoa
 import Foundation
+import UIKit
 
 class CurrencyConversionViewModel {
     let buttonFromTap = PublishSubject<Void>()
@@ -29,31 +30,30 @@ class CurrencyConversionViewModel {
     let isFromPickerVisible = BehaviorRelay<Bool>(value: true)
     let isToPickerVisible = BehaviorRelay<Bool>(value: true)
     
+    let coordinator: MainCoordinator
+    
     private var toTextFieldValue = ""
     private var fromTextFieldValue = ""
     
     private let disposeBag = DisposeBag()
     
-    init() {
+    init(coordinator: MainCoordinator) {
+        self.coordinator = coordinator
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.fromTextField.accept("1")
         }
         setupBindings()
     }
     
-    func temp() {
-        self.isLoading.onNext(true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.isLoading.onNext(false)
-        }
-    }
-    
     private func setupBindings() {
         buttonFromTap.subscribe(onNext: { [weak self] in
+            self?.isToPickerVisible.accept(true)
             self?.isFromPickerVisible.accept(!(self?.isFromPickerVisible.value ?? false))
         }).disposed(by: disposeBag)
         
         buttonToTap.subscribe(onNext: { [weak self] in
+            self?.isFromPickerVisible.accept(true)
             self?.isToPickerVisible.accept(!(self?.isToPickerVisible.value ?? false))
         }).disposed(by: disposeBag)
         
@@ -63,8 +63,13 @@ class CurrencyConversionViewModel {
         }).disposed(by: disposeBag)
         
         buttonDetailsTap.subscribe(onNext: { [weak self] in
-            print("\(#line)")
-            self?.temp()
+            guard let self = self else {return}
+            let from = selectedFromItem.value
+            let to   = selectedToItem.value
+            if ((!from.isEmpty) && (!to.isEmpty)) {
+                coordinator.navigateToDetailsScreen(currencies: [from, to].joined(separator: ","), 
+                                                    conversions: self.getTenConvertedValues())
+            }
         }).disposed(by: disposeBag)
         
         buttonSwapTap.subscribe(onNext: { [weak self] in
@@ -84,8 +89,8 @@ class CurrencyConversionViewModel {
         toTextField
             .compactMap { Double($0) ?? 1 }
             .map { self.convertCurrency(amount: $0,
-                                        from: self.selectedFromItem.value,
-                                        to: self.selectedToItem.value,
+                                        from: self.selectedToItem.value,
+                                        to: self.selectedFromItem.value,
                                         rates: self.ratesData.value?.rates) }
             .map { "\($0 ?? 0)" }
             .bind(to: toOutputSubject)
@@ -105,6 +110,9 @@ class CurrencyConversionViewModel {
         
         selectFromItem
             .withLatestFrom(pickerFromData) { (index, items) -> String in
+                if (!self.selectedToItem.value.isEmpty) {
+                    self.fromTextField.accept(self.fromTextField.value)
+                }
                 return items[index]
             }
             .bind(to: selectedFromItem)
@@ -112,10 +120,25 @@ class CurrencyConversionViewModel {
         
         selectToItem
             .withLatestFrom(pickerToData) { (index, items) -> String in
+                
                 return items[index]
             }
             .bind(to: selectedToItem)
             .disposed(by: disposeBag)
+        
+        selectToItem
+            .subscribe(onNext: { value in
+                if (!self.selectedFromItem.value.isEmpty) {
+                    self.fromTextField.accept(self.fromTextField.value)
+                }
+            }).disposed(by: disposeBag)
+        
+        selectFromItem
+            .subscribe(onNext: { value in
+                if (!self.selectedFromItem.value.isEmpty) {
+                    self.fromTextField.accept(self.fromTextField.value)
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func convertCurrency(amount: Double,
@@ -130,36 +153,30 @@ class CurrencyConversionViewModel {
         }
         
         let conversionRate = targetToBaseRate / sourceToBaseRate
-        return (amount * conversionRate).rounded(toPlaces: 2)
+        return (amount * conversionRate).rounded(toPlaces: 4)
     }
     
-    func getHistory() {
-        self.isLoading.onNext(true)
-        NetworkCalls.getCurrencySymbolsData { [weak self] result in
-            switch result {
-            case .success(let symbols):
-                self?.isLoading.onNext(false)
-                print(symbols)
-                self?.pickerFromData.accept(symbols.symbols.keys.map{$0})
-                self?.pickerToData.accept(symbols.symbols.keys.map{$0})
-            case .failure(let error):
-                self?.isLoading.onNext(false)
-                print(error.localizedDescription)
-            }
+    private func getTenConvertedValues() -> ([String], [String]) {
+        var results = [String]()
+        let currencies = Array(self.pickerFromData.value.prefix(11).filter{$0 != self.selectedFromItem.value}.prefix(10))
+        for i in currencies {
+            results.append("\(self.convertCurrency(amount: 1, from: self.selectedFromItem.value, to: i, rates: self.ratesData.value?.rates) ?? 0.0)")
         }
+        return (results, currencies)
     }
     
     func getRates() {
         self.isLoading.onNext(true)
         NetworkCalls.getLatestCurrencyRates{ [weak self] result in
+            self?.isLoading.onNext(false)
             switch result {
             case .success(let rates):
-                self?.isLoading.onNext(false)
                 self?.ratesData.accept(rates)
-                print(rates)
+                self?.pickerFromData.accept(rates.rates.keys.map{$0})
+                self?.pickerToData.accept(rates.rates.keys.map{$0})
             case .failure(let error):
-                self?.isLoading.onNext(false)
                 print(error.localizedDescription)
+                
             }
         }
     }

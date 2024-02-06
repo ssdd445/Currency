@@ -22,11 +22,17 @@ class CurrencyHistoryViewModel {
      "GBP": 1.011,
      "EUR": 1.95])]*/
     private let currencies: String
+    let conversions: ([String], [String])
+    
+    var fromCurrency: String
+    
     let isLoading = PublishSubject<Bool>()
     var reload: (() -> ())?
     
-    init(currencies: String) {
+    init(currencies: String, conversions: ([String], [String])) {
         self.currencies = currencies
+        self.fromCurrency = currencies.components(separatedBy: ",").first ?? ""
+        self.conversions = conversions
     }
     
     func getHistory() {
